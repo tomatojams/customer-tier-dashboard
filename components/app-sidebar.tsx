@@ -216,8 +216,20 @@ export function AppSidebar({ activeMenu = "promotion-create", onMenuChange, ...p
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
                         tooltip={item.title}
-                        isActive={activeMenu === item.key}
-                        onClick={() => onMenuChange?.(item.key)}
+                        isActive={
+                          activeMenu === item.key ||
+                          (item.items && item.items.some((subItem) => subItem.key === activeMenu))
+                        }
+                        onClick={() => {
+                          if (item.items && item.items.length > 0) {
+                            // 상위 메뉴에 서브메뉴가 있는 경우, 첫 번째 서브메뉴로 라우팅
+                            const defaultSubMenu = item.items[0].key
+                            onMenuChange?.(defaultSubMenu)
+                          } else {
+                            // 서브메뉴가 없는 경우 해당 메뉴로 라우팅
+                            onMenuChange?.(item.key)
+                          }
+                        }}
                       >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
@@ -234,7 +246,10 @@ export function AppSidebar({ activeMenu = "promotion-create", onMenuChange, ...p
                               <SidebarMenuSubButton
                                 asChild
                                 isActive={activeMenu === subItem.key}
-                                onClick={() => onMenuChange?.(subItem.key)}
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  onMenuChange?.(subItem.key)
+                                }}
                               >
                                 <a href={subItem.url}>
                                   {subItem.icon && <subItem.icon className="h-4 w-4" />}

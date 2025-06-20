@@ -25,6 +25,8 @@ import { ProductList } from "@/components/product-list"
 import { CustomerRegister } from "@/components/customer-register"
 import { CustomerList } from "@/components/customer-list"
 import { DashboardSummary } from "@/components/dashboard-summary"
+import { InventoryManagement } from "@/components/inventory-management"
+import { DeliveryManagement } from "@/components/delivery-management"
 
 export default function AdminDashboard() {
   const [activeMenu, setActiveMenu] = useState("promotion-create")
@@ -54,11 +56,8 @@ export default function AdminDashboard() {
         )
       case "inventory":
         return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">재고관리</h2>
-              <p className="text-gray-600">재고관리 기능을 준비 중입니다.</p>
-            </div>
+          <div className="space-y-6">
+            <InventoryManagement />
           </div>
         )
       case "promotion-create":
@@ -120,6 +119,42 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <DashboardSummary />
+          </div>
+        )
+      case "customers":
+        return (
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">고객 목록</h1>
+              <p className="text-gray-600 mt-2">등록된 고객을 검색하고 관리합니다.</p>
+            </div>
+            <CustomerList />
+          </div>
+        )
+      case "products":
+        return (
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">상품 목록</h1>
+              <p className="text-gray-600 mt-2">등록된 상품을 검색하고 관리합니다.</p>
+            </div>
+            <ProductList />
+          </div>
+        )
+      case "promotions":
+        return (
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">프로모션 게시판</h1>
+              <p className="text-gray-600 mt-2">생성된 프로모션을 검색하고 관리합니다.</p>
+            </div>
+            <PromotionBoard />
+          </div>
+        )
+      case "shipping":
+        return (
+          <div className="space-y-6">
+            <DeliveryManagement />
           </div>
         )
       default:
@@ -219,6 +254,48 @@ export default function AdminDashboard() {
         return (
           <BreadcrumbItem>
             <BreadcrumbPage>대시보드</BreadcrumbPage>
+          </BreadcrumbItem>
+        )
+      case "customers":
+        return (
+          <>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">고객관리</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>고객 목록</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        )
+      case "products":
+        return (
+          <>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">상품관리</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>상품 목록</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        )
+      case "promotions":
+        return (
+          <>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">프로모션 관리</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>프로모션 게시판</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        )
+      case "shipping":
+        return (
+          <BreadcrumbItem>
+            <BreadcrumbPage>배송관리</BreadcrumbPage>
           </BreadcrumbItem>
         )
       default:

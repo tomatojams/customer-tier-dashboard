@@ -19,11 +19,48 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Toaster } from "@/components/ui/toaster"
 
+// ProductRegister와 ProductList 컴포넌트를 import 추가
+import { ProductRegister } from "@/components/product-register"
+import { ProductList } from "@/components/product-list"
+import { CustomerRegister } from "@/components/customer-register"
+import { CustomerList } from "@/components/customer-list"
+import { DashboardSummary } from "@/components/dashboard-summary"
+
 export default function AdminDashboard() {
   const [activeMenu, setActiveMenu] = useState("promotion-create")
 
+  // renderMainContent 함수에 새로운 케이스들을 추가
   const renderMainContent = () => {
     switch (activeMenu) {
+      case "product-register":
+        return (
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">상품 등록</h1>
+              <p className="text-gray-600 mt-2">새로운 상품을 등록합니다.</p>
+            </div>
+            <ProductRegister />
+          </div>
+        )
+      case "product-list":
+        return (
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">상품 목록</h1>
+              <p className="text-gray-600 mt-2">등록된 상품을 검색하고 관리합니다.</p>
+            </div>
+            <ProductList />
+          </div>
+        )
+      case "inventory":
+        return (
+          <div className="flex items-center justify-center h-96">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">재고관리</h2>
+              <p className="text-gray-600">재고관리 기능을 준비 중입니다.</p>
+            </div>
+          </div>
+        )
       case "promotion-create":
         return (
           <div className="space-y-6">
@@ -59,6 +96,32 @@ export default function AdminDashboard() {
             <PromotionBoard />
           </div>
         )
+      case "customer-register":
+        return (
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">고객 등록</h1>
+              <p className="text-gray-600 mt-2">새로운 고객을 등록합니다.</p>
+            </div>
+            <CustomerRegister />
+          </div>
+        )
+      case "customer-list":
+        return (
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">고객 목록</h1>
+              <p className="text-gray-600 mt-2">등록된 고객을 검색하고 관리합니다.</p>
+            </div>
+            <CustomerList />
+          </div>
+        )
+      case "dashboard":
+        return (
+          <div className="space-y-6">
+            <DashboardSummary />
+          </div>
+        )
       default:
         return (
           <div className="flex items-center justify-center h-96">
@@ -71,8 +134,39 @@ export default function AdminDashboard() {
     }
   }
 
+  // getBreadcrumbItems 함수에 새로운 케이스들을 추가
   const getBreadcrumbItems = () => {
     switch (activeMenu) {
+      case "product-register":
+        return (
+          <>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">상품관리</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>상품 등록</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        )
+      case "product-list":
+        return (
+          <>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">상품관리</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>상품 목록</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        )
+      case "inventory":
+        return (
+          <BreadcrumbItem>
+            <BreadcrumbPage>재고관리</BreadcrumbPage>
+          </BreadcrumbItem>
+        )
       case "promotion-create":
         return (
           <>
@@ -96,6 +190,36 @@ export default function AdminDashboard() {
               <BreadcrumbPage>프로모션 게시판</BreadcrumbPage>
             </BreadcrumbItem>
           </>
+        )
+      case "customer-register":
+        return (
+          <>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">고객관리</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>고객 등록</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        )
+      case "customer-list":
+        return (
+          <>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">고객관리</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>고객 목록</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        )
+      case "dashboard":
+        return (
+          <BreadcrumbItem>
+            <BreadcrumbPage>대시보드</BreadcrumbPage>
+          </BreadcrumbItem>
         )
       default:
         return (

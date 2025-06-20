@@ -1,7 +1,22 @@
 "use client"
 
 import type * as React from "react"
-import { Bell, ChevronRight, Home, Package, Settings, Truck, Users, Megaphone, Plus, List } from "lucide-react"
+import {
+  Bell,
+  ChevronRight,
+  Home,
+  Package,
+  Settings,
+  Truck,
+  Users,
+  Megaphone,
+  Plus,
+  List,
+  ShoppingCart,
+  FileText,
+  UserPlus,
+  UsersIcon,
+} from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -54,6 +69,20 @@ const data = {
       url: "#",
       icon: Users,
       key: "customers",
+      items: [
+        {
+          title: "고객 등록",
+          url: "#",
+          icon: UserPlus,
+          key: "customer-register",
+        },
+        {
+          title: "고객 목록",
+          url: "#",
+          icon: UsersIcon,
+          key: "customer-list",
+        },
+      ],
     },
     {
       title: "상품관리",
@@ -62,11 +91,24 @@ const data = {
       key: "products",
       items: [
         {
-          title: "재고관리",
+          title: "상품 등록",
           url: "#",
-          key: "inventory",
+          icon: ShoppingCart,
+          key: "product-register",
+        },
+        {
+          title: "상품 목록",
+          url: "#",
+          icon: FileText,
+          key: "product-list",
         },
       ],
+    },
+    {
+      title: "재고관리",
+      url: "#",
+      icon: Package,
+      key: "inventory",
     },
     {
       title: "프로모션 관리",
@@ -167,7 +209,7 @@ export function AppSidebar({ activeMenu = "promotion-create", onMenuChange, ...p
                 <Collapsible
                   key={item.key}
                   asChild
-                  defaultOpen={item.key === "promotions"}
+                  defaultOpen={item.key === "promotions" || item.key === "customers" || item.key === "products"}
                   className="group/collapsible"
                 >
                   <SidebarMenuItem>
